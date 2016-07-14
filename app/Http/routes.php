@@ -31,6 +31,6 @@ Route::group(['middleware' => 'web'], function() {
 
 });
 
-// Route::any('/test', function() {
-//     return view('');
-// });
+Route::any('/test', function() {
+    return view('test.blade');
+});
