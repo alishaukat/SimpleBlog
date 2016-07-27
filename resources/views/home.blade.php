@@ -1,3 +1,7 @@
+<?php
+	$title = 'Welcome to GIK blog';
+?>
+
 @extends('layouts.master')
 
 @section('file')

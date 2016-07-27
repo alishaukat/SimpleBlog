@@ -1,3 +1,7 @@
+<?php
+	$title = 'Edit Post';
+?>
+
 @extends('layouts.master')
 
 @section('pageHeading')
@@ -21,5 +25,19 @@
 	</div>
 		<button type="submit" class="btn btn-default">Update Post</button>
 </form>
+
+	@if(count($errors))
+		<div class="col-md-12 alert alert-danger">
+		<strong>Attention !</strong><br />
+			<ul>
+				@foreach($errors->all() as $error)
+						<li>{{ $error }}</li>.
+				@endforeach
+			</ul>
+		</div> 
+
+		
+	@endif
+
 @stop
 

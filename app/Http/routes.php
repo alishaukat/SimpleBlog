@@ -10,27 +10,25 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::group(['middleware' => 'web'], function() {
     
-    Route::get('/', 'IndexController@index');
+Route::get('/', 'IndexController@index');
 
-	Route::auth();
+Route::auth();
 
-	Route::get('/home', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 
-	Route::get('/post/create','PostsController@create');
+Route::get('/post/create','PostsController@create');
 
-	Route::post('/user/{user}/post','PostsController@store');
+Route::post('/user/{user}/post','PostsController@store');
 
-	Route::get('/post/{post}/edit','PostsController@edit');
+Route::get('/post/{post}/edit','PostsController@edit');
 
-	Route::patch('/post/{postid}','PostsController@update')->middleware('post.owner');
+Route::patch('/post/{post}','PostsController@update')->middleware('post.owner');
 
-	Route::delete('/post/{postid}','PostsController@destroy')->middleware('post.owner');
+Route::delete('/post/{post}','PostsController@destroy')->middleware('post.owner');
 
+Route::post('/post/{post}/comment/create','CommentsController@store');
+
+Route::get('/test', function(){
+	return view('test');
 });
-
-// Route::any('/test', function() {
-//     return view('test.blade');
-// });

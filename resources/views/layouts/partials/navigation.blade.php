@@ -15,16 +15,13 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-                <li>
                     <a href="/post/create">Create Post</a>
+                </li>
+                <li>
+                    <a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
+                </li>
+                <li>
+                    <a href="{{ url('/test') }}">Test Page</a>
                 </li>
             </ul>
 

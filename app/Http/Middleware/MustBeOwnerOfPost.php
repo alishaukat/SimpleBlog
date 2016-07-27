@@ -18,7 +18,7 @@ class MustBeOwnerOfPost
     public function handle($request, Closure $next)
     {
         $user = $request->user();
-        $id = $request->postid;
+        $id = $request->post->id;
         $currentPost = Post::find($id);
 
         if($user && $user->name == Auth::user()->name && $currentPost->user_id == Auth::user()->id){

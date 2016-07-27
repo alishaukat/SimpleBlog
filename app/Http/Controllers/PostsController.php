@@ -21,6 +21,12 @@ class PostsController extends Controller
 	}
 
 	public function store(Request $request){
+
+		$this->validate($request,[
+			'title' => 'required|unique:posts|max:100',
+			'body' => 'required'
+		]);
+
 		$post = new Post;
 		$post->title = $request->title;
 		$post->body = $request->body;
@@ -35,6 +41,12 @@ class PostsController extends Controller
 	}
 
 	public function update(Request $request, Post $post){
+
+		$this->validate($request,[
+			'title' => 'required|unique:posts|max:100',
+			'body' => 'required'
+		]);
+		
 		$post->update($request->all());
 		return redirect('/home');
 	}

@@ -1,3 +1,7 @@
+<?php
+	$title = 'Create Post';
+?>
+
 @extends('layouts.master')
 
 @section('file')

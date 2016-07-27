@@ -10,3 +10,16 @@
 	</div>
 		<button type="submit" class="btn btn-default">Create Post</button>
 </form>
+
+@if(count($errors))
+	<div class="col-md-12 alert alert-danger">
+	<strong>Attention !</strong><br />
+		<ul>
+			@foreach($errors->all() as $error)
+					<li>{{ $error }}</li>.
+			@endforeach
+		</ul>
+	</div> 
+
+	
+@endif

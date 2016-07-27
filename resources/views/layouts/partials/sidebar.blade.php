@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-md-4" data-spy="affix" data-offset-top="40">
 
 <!-- Blog Search Well -->
 <div class="well">
