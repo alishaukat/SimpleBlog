@@ -50,5 +50,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'post.owner' => \App\Http\Middleware\MustBeOwnerOfPost::class,
+        'comment.owner' => \App\Http\Middleware\MustBeOwnerOfComment::class,
     ];
 }

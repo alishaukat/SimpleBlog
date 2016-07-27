@@ -57,8 +57,15 @@
                     <br />
 
                         @if($comment->user_id == Auth::id())
-                            <a href="">Edit</a>&nbsp;&nbsp;
-                            <a href="">Delete</a>
+                            <a href="/post/{{ $post->id }}/comment/{{$comment->id}}" class="pull-left">Edit</a>&nbsp;&nbsp;
+                            <form action="/post/{{ $post->id }}/comment/{{$comment->id}}" method="POST" class="pull-left">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+
+                                <button type="submit" id="delete-task-{{ $post->id }}" class="btn btn-link" style="padding-top:0px;">Delete
+                                </button>
+                            </form>
+
                         @endif
                 </div>
             </div>

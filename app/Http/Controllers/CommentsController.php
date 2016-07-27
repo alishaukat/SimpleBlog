@@ -29,4 +29,21 @@ class CommentsController extends Controller
 		Auth::user()->comments()->save($comment);
 		return back();
     }
+
+    public function edit($post, Comment $comment){
+    	return view('comments.editComment', compact('comment'));
+    }
+
+    public function update(Request $request, $post, Comment $comment){
+    	$this->validate($request,[
+			'body' => 'required'
+		]);
+		$comment->update($request->all());
+		return redirect('/home');
+    }
+
+    public function destroy($post,Comment $comment){
+		$comment->delete();
+		return redirect('/home');
+	}
 }

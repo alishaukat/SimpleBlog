@@ -29,6 +29,12 @@ Route::delete('/post/{post}','PostsController@destroy')->middleware('post.owner'
 
 Route::post('/post/{post}/comment/create','CommentsController@store');
 
+Route::get('/post/{post}/comment/{comment}','CommentsController@edit');
+
+Route::patch('/post/{post}/comment/{comment}','CommentsController@update')->middleware('comment.owner');
+
+Route::delete('/post/{post}/comment/{comment}','CommentsController@destroy')->middleware('comment.owner');
+
 Route::get('/test', function(){
 	return view('test');
 });
