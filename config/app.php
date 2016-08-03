@@ -158,6 +158,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Service Providers added by me...
+         */
+
     ],
 
     /*

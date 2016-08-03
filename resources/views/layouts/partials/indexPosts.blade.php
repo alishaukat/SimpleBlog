@@ -1,30 +1,45 @@
-    @foreach($posts as $post)
-        <h2>
-            <a href="#">{{$post->title}}</a>
-        </h2>
-        <p class="lead">
-            by <a href="index.php">
+@foreach($posts as $post)
+    <h2>
+    @if(!Auth::guest())
+        <a href="/post/{{ $post->id }}">{{$post->title}}</a>
+    @else
+        <a href="/post/{{ $post->id }}/asguest">{{$post->title}}</a>
+    @endif
+    </h2>
+
+    <p class="lead">
+        by  
+        @if(!Auth::guest())<a href="/user/{{$post->user_id}}/profile">
+        {{$post->user->name}}
+            </a>
+        @else
+            <a href="/user/{{$post->user_id}}/profile/asguest">
             {{$post->user->name}}
             </a>
-        </p>
-        <p><span class="glyphicon glyphicon-time"></span> Posted on {{$post->created_at->format('F j,Y')}} at {{$post->created_at->format('g:i A')}}</p>
-
-        @if($post->created_at != $post->updated_at)
-            <p><span class="glyphicon glyphicon-time"></span> updated at {{$post->updated_at->format('F j,Y')}} at {{$post->updated_at->format('g:i A')}}</p>
         @endif
+    </p>
+    <p><span class="glyphicon glyphicon-time"></span> Posted on {{$post->created_at->format('F j,Y')}} at {{$post->created_at->format('g:i A')}}</p>
+
+    @if($post->created_at != $post->updated_at)
+        <p><span class="glyphicon glyphicon-time"></span> updated at {{$post->updated_at->format('F j,Y')}} at {{$post->updated_at->format('g:i A')}}</p>
+    @endif
 
 
-        {{-- <hr> --}}
-        {{-- <img class="img-responsive" src="http:/img/900x300.png" alt=""> --}}
-        <hr>
-        <p>{{$post->body}}</p>
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- <a class="btn btn-primary" href="">Add Comment <span class="glyphicon"></span></a> -->
+    <hr>
+    <img class="img-responsive" src="/img/900x300.png" alt="">
+    <hr>
+    <p>{{$post->body}}</p>
+    <div class="row">
+        <div class="col-lg-12">
+            @if(!Auth::guest())
+            <a class="btn btn-primary pull-right" href="/post/{{ $post->id }}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+            @else
+                <a class="btn btn-primary pull-right" href="/post/{{ $post->id }}/asguest">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+            @endif
+            @if(!Auth::guest())
                 @if(Auth::user()->name == $post->user->name)
                 
                 <a class="btn btn-primary pull-left" href="/post/{{$post->id}}/edit">Edit <span class="glyphicon glyphicon-pencil"></span></a>
-                {{-- <a class="btn btn-primary" href="#">Delete <span class="glyphicon glyphicon-remove"></span></a> --}}
                     <form action="{{ url('post/'.$post->id) }}" method="POST" class="pull-left" style="padding-left:5px">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
@@ -34,63 +49,9 @@
                         </button>
                     </form>
                 @endif
-                    @if(count($post->comments))
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h3>Comments</h3>
-                            </div>
-                        </div>
-                    @endif
-            </div>   
-        </div>
+            @endif
+        </div>   
+    </div>
+    <hr>
 
-            @foreach($post->comments as $comment)
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                <div class="media-body">
-                    <h4 class="media-heading">{{$comment->user->name}}
-                        <small>{{$comment->created_at->format('F j,Y')}} at {{$comment->created_at->format('g:i A')}}</small>
-                    </h4>
-                    {{ $comment->body }}
-                    <br />
-
-                        @if($comment->user_id == Auth::id())
-                            <a href="/post/{{ $post->id }}/comment/{{$comment->id}}" class="pull-left">Edit</a>&nbsp;&nbsp;
-                            <form action="/post/{{ $post->id }}/comment/{{$comment->id}}" method="POST" class="pull-left">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-
-                                <button type="submit" id="delete-task-{{ $post->id }}" class="btn btn-link" style="padding-top:0px;">Delete
-                                </button>
-                            </form>
-
-                        @endif
-                </div>
-            </div>
-            @endforeach
-
-                <div class="well">
-                    <h4>Leave a Comment:</h4>
-                        <form role="form" method="POST" action="/post/{{$post->id}}/comment/create" >
-                        {{ csrf_field() }}
-                            <div class="form-group">
-                                <textarea class="form-control" rows="2" name="body"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Add Comment</button>
-                        </form>
-                </div>
-        <hr>
-
-    @endforeach
-
-    <!-- Pager -->
-    <ul class="pager">
-        <li class="previous">
-            <a href="#">&larr; Older</a>
-        </li>
-        <li class="next">
-            <a href="#">Newer &rarr;</a>
-        </li>
-    </ul>
+@endforeach

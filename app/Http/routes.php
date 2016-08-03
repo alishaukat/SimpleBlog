@@ -13,28 +13,36 @@
     
 Route::get('/', 'IndexController@index');
 
+Route::get('/post/{post}/asguest','IndexController@showPost');
+
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/post/create','PostsController@create');
+Route::get('/post/{post}','PostsController@showPost' );
 
-Route::post('/user/{user}/post','PostsController@store');
+Route::get('/newpost/create', 'PostsController@create');
 
-Route::get('/post/{post}/edit','PostsController@edit');
+Route::post('/user/{user}/post', 'PostsController@store');
 
-Route::patch('/post/{post}','PostsController@update')->middleware('post.owner');
+Route::get('/post/{post}/edit', 'PostsController@edit');
 
-Route::delete('/post/{post}','PostsController@destroy')->middleware('post.owner');
+Route::patch('/post/{post}', 'PostsController@update')->middleware('post.owner');
 
-Route::post('/post/{post}/comment/create','CommentsController@store');
+Route::delete('/post/{post}', 'PostsController@destroy')->middleware('post.owner');
 
-Route::get('/post/{post}/comment/{comment}','CommentsController@edit');
+Route::post('/post/{post}/comment/create', 'CommentsController@store');
 
-Route::patch('/post/{post}/comment/{comment}','CommentsController@update')->middleware('comment.owner');
+Route::get('/post/{post}/comment/{comment}', 'CommentsController@edit');
 
-Route::delete('/post/{post}/comment/{comment}','CommentsController@destroy')->middleware('comment.owner');
+Route::patch('/post/{post}/comment/{comment}', 'CommentsController@update')->middleware('comment.owner');
 
-Route::get('/test', function(){
-	return view('test');
-});
+Route::delete('/post/{post}/comment/{comment}', 'CommentsController@destroy')->middleware('comment.owner');
+
+Route::get('/user/{user}/profile','UsersController@show');
+
+Route::get('/user/{user}/profile/asguest','IndexController@showProfile');
+
+Route::get('/user/{user}/profile/edit','UsersController@edit');
+
+Route::patch('/user/{user}/profile','UsersController@update');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Userprofile;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -48,10 +49,11 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:5|confirmed',
         ]);
     }
 
@@ -63,10 +65,17 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        $userprofile = Userprofile::create([
+        ]);
+
+        $user->userprofile()->save($userprofile);
+        return $user;
     }
 }

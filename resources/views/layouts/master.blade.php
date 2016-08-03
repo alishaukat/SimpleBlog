@@ -18,7 +18,8 @@
     <link href="/css/blog-post.css" rel="stylesheet">
     <link href="/css/blog-home.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    @yield('headStuff')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -39,16 +40,9 @@
         <div class="col-md-8">
 
             @yield('pageHeading')
-
-            @if(!Auth::guest())
                 @yield('file')
-        </div>
-                <!-- Blog Sidebar Widgets Column -->
-                @include('layouts.partials.sidebar')
-
-            @else
-                <h1>Please Sign in to Continue</h1>
-            @endif
+            </div>
+            @include('layouts.partials.sidebar')
 
         
         <!-- /.row -->
@@ -57,7 +51,6 @@
     </div>
         <!-- Footer -->
         @include('layouts.partials.footer')
-
 
 </body>
 

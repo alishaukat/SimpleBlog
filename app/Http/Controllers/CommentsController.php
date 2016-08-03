@@ -44,6 +44,6 @@ class CommentsController extends Controller
 
     public function destroy($post,Comment $comment){
 		$comment->delete();
-		return redirect('/home');
+		return back();
 	}
 }

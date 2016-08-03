@@ -27,9 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         $posts = Post::orderBy('updated_at','desc')->get();
-        $posts->load('user','comments');
-        $comments = Comment::all();
-        $comments->load('user');
-        return view('home',compact('posts','comments'));
+        $posts->load('user');
+        return view('home',compact('posts'));
     }
 }
